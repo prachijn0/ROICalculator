@@ -36,7 +36,7 @@ body{display:flex;flex-direction:column;align-items:center;min-height:100vh;padd
 .logo-text span{color:var(--accentB)}
 .topbar-right{display:flex;align-items:center;gap:12px}
 .tagline{font-size:11px;color:var(--muted);letter-spacing:.04em;text-align:right;line-height:1.5}
-.theme-btn{display:flex;align-items:center;gap:7px;background:var(--s2);border:1px solid var(--border2);border-radius:20px;color:var(--muted2);font-family:var(--font);font-size:11px;font-weight:600;padding:6px 12px;cursor:pointer;transition:all .2s}
+.theme-btn{display:flex;align-items:center;gap:7px;background:var(--s2);border:1px solid var(--border2);border-radius:20px;color:var(--muted2);font-family:var(--font);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:5px 12px;cursor:pointer;border:1px solid var(--border2)}
 .theme-btn:hover{background:var(--s3);border-color:var(--border)}
 
 /* two-col layout */
@@ -81,7 +81,7 @@ input[type=range].before-range::-moz-range-thumb{width:15px;height:15px;border-r
 input[type=range].after-range::-moz-range-thumb{width:15px;height:15px;border-radius:50%;background:var(--after);border:2px solid var(--s1);cursor:pointer}
 
 /* comparison banner */
-.compare-banner{width:100%;max-width:1200px;background:var(--s2);border:1px solid var(--border2);border-radius:16px;padding:22px 28px;margin-top:20px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:20px}
+.compare-banner{width:100%;max-width:1200px;background:var(--s2);border:1px solid var(--border2);border-radius:16px;padding:22px 28px;margin-top:20px;display:grid;grid-template-columns:1fr auto 1fr;gap:24px;align-items:center}
 .cb-side{display:flex;flex-direction:column;gap:6px}
 .cb-label{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
 .cb-stat{display:flex;align-items:baseline;gap:8px}
@@ -105,7 +105,7 @@ input[type=range].after-range::-moz-range-thumb{width:15px;height:15px;border-ra
 .sf-val.b{color:var(--before)}
 .sf-val.a{color:var(--after)}
 .sf-sep{color:var(--muted);font-size:16px;line-height:1;padding-top:10px}
-.auto-badge{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:rgba(16,217,160,.15);color:var(--after);border:1px solid rgba(16,217,160,.3);border-radius:5px;padding:3px 6px}
+.auto-badge{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:rgba(16,217,160,.15);color:var(--after);border:1px solid rgba(16,217,160,.3);border-radius:5px;padding:2px 6px}
 :root.light .auto-badge{background:rgba(5,150,105,.12);color:var(--after)}
 .auto-val{opacity:.65;cursor:default;pointer-events:none}
 input[type=range]:disabled{opacity:.4;cursor:default}
@@ -213,20 +213,20 @@ input[type=range]:disabled{opacity:.4;cursor:default}
 
       <!-- Hourly rate -->
       <div class="field">
-        <div class="field-label"><span>Hourly rate (USD)</span></div>
+        <div class="field-label"><span>Hourly rate (USD)</span><span class="auto-badge">Same as Before</span></div>
         <div class="input-row">
-          <input type="range" class="after-range" id="aRRate" min="10" max="400" step="10" value="200">
-          <input type="number" class="num-box a" id="aNRate" value="200">
+          <input type="range" class="after-range" id="aRRate" min="10" max="400" step="10" value="200" disabled>
+          <input type="number" class="num-box a auto-val" id="aNRate" value="200" readonly tabindex="-1">
         </div>
         <div class="range-ends"><span>$10</span><span>$400</span></div>
       </div>
 
       <!-- Total projects -->
       <div class="field">
-        <div class="field-label"><span>Total projects / yr</span></div>
+        <div class="field-label"><span>Total projects / yr</span><span class="auto-badge">Same as Before</span></div>
         <div class="input-row">
-          <input type="range" class="after-range" id="aRProj" min="1" max="50" step="1" value="5">
-          <input type="number" class="num-box a" id="aNProj" value="5">
+          <input type="range" class="after-range" id="aRProj" min="1" max="50" step="1" value="5" disabled>
+          <input type="number" class="num-box a auto-val" id="aNProj" value="5" readonly tabindex="-1">
         </div>
         <div class="range-ends"><span>1</span><span>50</span></div>
       </div>
@@ -339,13 +339,21 @@ function calc(){
   document.getElementById('bFProj').textContent       = bProj + ' proj';
   document.getElementById('bFTotalHours').textContent = bTotalHrs.toLocaleString() + 'h';
 
-  // AFTER — auto-set hours to 20% of Before hours; read rate & proj from inputs
+  // AFTER — auto-set rate & proj to match Before; hours set to 20% of Before hours
+  const aRate = bRate;
+  const aProj = bProj;
   const aHrsPerProj = Math.round(bHours * 0.2);
+  
+  // Update After inputs with Before values and calculated hours
+  document.getElementById('aNRate').value = aRate;
+  document.getElementById('aRRate').value = aRate;
+  
+  document.getElementById('aNProj').value = aProj;
+  document.getElementById('aRProj').value = aProj;
+  
   document.getElementById('aNHours').value = aHrsPerProj;
   document.getElementById('aRHours').value = Math.min(500, Math.max(10, aHrsPerProj));
 
-  const aRate = parseFloat(document.getElementById('aNRate').value)  || parseFloat(document.getElementById('aRRate').value);
-  const aProj = parseFloat(document.getElementById('aNProj').value)  || parseFloat(document.getElementById('aRProj').value);
   const aTotalHrs   = aProj * aHrsPerProj;
   const aTotalCost  = aTotalHrs * aRate;
 
@@ -368,13 +376,11 @@ function calc(){
   document.getElementById('cROI').textContent = roi + '% ROI';
 }
 
-// Bind all slider+number pairs
+// Bind all slider+number pairs for BEFORE section
 bindPair('bRRate',  'bNRate',  10, 400, calc);
 bindPair('bRProj',  'bNProj',  1,  50,  calc);
 bindPair('bRHours', 'bNHours', 10, 500, calc);
-bindPair('aRRate',  'aNRate',  10, 400, calc);
-bindPair('aRProj',  'aNProj',  1,  50,  calc);
-// aRHours/aNHours are auto-calculated (20% of Before) — no binding needed
+// AFTER inputs are disabled and auto-calculated from BEFORE values
 
 calc();
 </script>
