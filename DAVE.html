@@ -36,7 +36,7 @@ body{display:flex;flex-direction:column;align-items:center;min-height:100vh;padd
 .logo-text span{color:var(--accentB)}
 .topbar-right{display:flex;align-items:center;gap:12px}
 .tagline{font-size:11px;color:var(--muted);letter-spacing:.04em;text-align:right;line-height:1.5}
-.theme-btn{display:flex;align-items:center;gap:7px;background:var(--s2);border:1px solid var(--border2);border-radius:20px;color:var(--muted2);font-family:var(--font);font-size:11px;font-weight:600;padding:6px 12px;cursor:pointer;transition:.2s}
+.theme-btn{display:flex;align-items:center;gap:7px;background:var(--s2);border:1px solid var(--border2);border-radius:20px;color:var(--muted2);font-family:var(--font);font-size:11px;font-weight:600;padding:6px 12px;cursor:pointer;transition:all .2s}
 .theme-btn:hover{background:var(--s3);border-color:var(--border)}
 
 /* two-col layout */
@@ -67,7 +67,7 @@ body{display:flex;flex-direction:column;align-items:center;min-height:100vh;padd
 /* slider + number input row */
 .input-row{display:flex;align-items:center;gap:10px}
 .input-row input[type=range]{flex:1}
-.num-box{width:72px;flex-shrink:0;background:var(--s3);border:1px solid var(--border2);border-radius:8px;padding:5px 8px;font-family:var(--mono);font-size:12px;color:var(--text);outline:none;text-align:center;transition:.2s}
+.num-box{width:72px;flex-shrink:0;background:var(--s3);border:1px solid var(--border2);border-radius:8px;padding:5px 8px;font-family:var(--mono);font-size:12px;color:var(--text);outline:none;text-align:center}
 .num-box:hover{border-color:var(--border)}
 .num-box::-webkit-outer-spin-button,.num-box::-webkit-inner-spin-button{-webkit-appearance:none}
 .num-box.b:focus{border-color:rgba(59,130,246,.6)}
@@ -81,7 +81,7 @@ input[type=range].before-range::-moz-range-thumb{width:15px;height:15px;border-r
 input[type=range].after-range::-moz-range-thumb{width:15px;height:15px;border-radius:50%;background:var(--after);border:2px solid var(--s1);cursor:pointer}
 
 /* comparison banner */
-.compare-banner{width:100%;max-width:1200px;background:var(--s2);border:1px solid var(--border2);border-radius:16px;padding:22px 28px;margin-top:20px;display:grid;grid-template-columns:1fr auto 1fr;gap:20px}
+.compare-banner{width:100%;max-width:1200px;background:var(--s2);border:1px solid var(--border2);border-radius:16px;padding:22px 28px;margin-top:20px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:20px}
 .cb-side{display:flex;flex-direction:column;gap:6px}
 .cb-label{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
 .cb-stat{display:flex;align-items:baseline;gap:8px}
@@ -105,7 +105,7 @@ input[type=range].after-range::-moz-range-thumb{width:15px;height:15px;border-ra
 .sf-val.b{color:var(--before)}
 .sf-val.a{color:var(--after)}
 .sf-sep{color:var(--muted);font-size:16px;line-height:1;padding-top:10px}
-.auto-badge{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:rgba(16,217,160,.15);color:var(--after);border:1px solid rgba(16,217,160,.3);border-radius:5px;padding:3px 8px}
+.auto-badge{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:rgba(16,217,160,.15);color:var(--after);border:1px solid rgba(16,217,160,.3);border-radius:5px;padding:3px 6px}
 :root.light .auto-badge{background:rgba(5,150,105,.12);color:var(--after)}
 .auto-val{opacity:.65;cursor:default;pointer-events:none}
 input[type=range]:disabled{opacity:.4;cursor:default}
@@ -125,9 +125,9 @@ input[type=range]:disabled{opacity:.4;cursor:default}
 <div class="topbar">
   <div class="logo">
     <div class="logo-badge">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 120" width="42" height="42">
-        <!-- Red "DAVE" text -->
-        <text x="0" y="85" font-family="Arial, sans-serif" font-size="90" font-weight="bold" fill="#ff3d00">DAVE</text>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 120" width="42" height="42">
+        <rect width="240" height="120" fill="#FF0000" rx="8"/>
+        <text x="120" y="82" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="white" text-anchor="middle">DAVE</text>
       </svg>
     </div>
     <div class="logo-text"><span></span> ROI Calculator</div>
